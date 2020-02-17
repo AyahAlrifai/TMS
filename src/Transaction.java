@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 
 public class Transaction {
-	
 	private int id;
 	private int type;
 	private double amount;
@@ -9,7 +8,6 @@ public class Transaction {
 	private String comment;
 	private LocalDate date;
 	private int monthFrequent;
-	
 	public Transaction(int id, int type, double amount, int category, String comment, LocalDate date,
 			int monthFrequent) {
 		super();
@@ -21,7 +19,6 @@ public class Transaction {
 		this.date = date;
 		this.monthFrequent = monthFrequent;
 	}
-
 	public int getMonthFrequent() {
 		return monthFrequent;
 	}
@@ -64,6 +61,5 @@ public class Transaction {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	
-	
+
 }
