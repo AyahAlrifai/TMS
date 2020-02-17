@@ -16,7 +16,7 @@ public interface TMSServices {
 	
 	public Boolean updateCategory(String value,String iconPath);
 	//set monthly frequent for any transaction 
-	public Boolean setFrequant(int id,int monthFrequent);
+	public Boolean setFrequant(int transactionId,int monthFrequent);
 	
 	public double getBalance(List<Transaction> transactions);
 }
