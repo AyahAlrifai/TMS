@@ -12,7 +12,6 @@ class Services {
 	String password;
 	PreparedStatement stmt;
 	ResultSet rs;
-	Scanner sc=new Scanner(System.in);
 	public Services() throws ClassNotFoundException, SQLException {
 		try {
 			DataInputStream reader=new DataInputStream( new FileInputStream("configFile.txt"));

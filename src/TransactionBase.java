@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public abstract class TransactionBase {
+public abstract class TransactionBase implements Transaction {
 	
 	private int id;
 	private int type;
