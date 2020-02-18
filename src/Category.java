@@ -2,6 +2,7 @@ public class Category {
 	private int id;
 	private String value;
 	private String iconPath;
+	
 	public Category(int id, String value, String iconPath) {
 		super();
 		this.id = id;
