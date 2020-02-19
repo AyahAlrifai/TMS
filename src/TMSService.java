@@ -1,8 +1,8 @@
 import java.util.List;
-//type of list TransactionBase in getTransatcions method
+
 public interface TMSService {
 	//ayah
-	public List<TransactionBase> getTransatcions(TransactionFilters filters);
+	public List<Transaction> getTransatcions(TransactionFilters filters);
 	//ayah
 	public List<Category> getCategories(Integer type);
 	//samer

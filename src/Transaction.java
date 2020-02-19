@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-//edit get and set methods for category
+
 public interface Transaction {
 	
 	public int getId();
@@ -14,9 +14,9 @@ public interface Transaction {
 
 	public void setAmount(double amount);
 
-	public Category getCategory();
+	public int getCategory();
 
-	public void setCategory(Category category);
+	public void setCategory(int category);
 
 	public String getComment();
 
