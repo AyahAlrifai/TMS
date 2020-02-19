@@ -14,19 +14,20 @@ public class TMSServiceDatabaseImpl implements TMSService {
 	private String password;
 	private PreparedStatement pstmt;
 	private ResultSet result;
-	
+
 	public TMSServiceDatabaseImpl() throws ClassNotFoundException, SQLException {
 		try {
-			DataInputStream reader=new DataInputStream( new FileInputStream("configFile.txt"));
-			this.databaseName=reader.readLine();
-			this.userName=reader.readLine();
-			this.password=reader.readLine();
+			DataInputStream reader = new DataInputStream(new FileInputStream("configFile.txt"));
+			this.databaseName = reader.readLine();
+			this.userName = reader.readLine();
+			this.password = reader.readLine();
+		} catch (Exception e) {
 		}
-		catch(Exception e) {
-		}
-	    Class.forName("com.mysql.jdbc.Driver");
-	    connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+this.databaseName,this.userName,this.password);
+		Class.forName("com.mysql.jdbc.Driver");
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + this.databaseName, this.userName,
+				this.password);
 	}
+
 	@Override
 	public List<Transaction> getTransatcions(TransactionFilters filters) {
 		// TODO Auto-generated method stub
