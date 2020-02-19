@@ -3,7 +3,7 @@ public class Category {
 	private String value;
 	private String iconPath;
 	
-	public Category(int id, String value, String iconPath) {
+	public Category(int id , String value, String iconPath) {
 		super();
 		this.id = id;
 		this.value = value;

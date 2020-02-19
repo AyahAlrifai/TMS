@@ -56,5 +56,4 @@ public abstract class TransactionBase implements Transaction {
 		this.date = date;
 	}
 	
-	
 }

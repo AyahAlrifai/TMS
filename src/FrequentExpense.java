@@ -3,9 +3,11 @@ import java.time.LocalDate;
 public class FrequentExpense extends Expense implements Frequent {
 
 	private int monthFrequent;
-	public FrequentExpense(int id, int type, double amount, int category, String comment, LocalDate date,int pymentMethod,int monthFrequent) {
-		super(id, type, amount, category, comment, date,pymentMethod);
-		this.monthFrequent=monthFrequent;
+
+	public FrequentExpense(int id, int type, double amount, int category, String comment, LocalDate date,
+			int pymentMethod, int monthFrequent) {
+		super(id, type, amount, category, comment, date, pymentMethod);
+		this.monthFrequent = monthFrequent;
 	}
 
 	@Override
@@ -15,8 +17,8 @@ public class FrequentExpense extends Expense implements Frequent {
 
 	@Override
 	public void setMonthFrequent(int monthFrequent) {
-		this.monthFrequent=monthFrequent;
-		
+		this.monthFrequent = monthFrequent;
+
 	}
 
 }
