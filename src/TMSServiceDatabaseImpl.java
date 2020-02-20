@@ -25,7 +25,7 @@ public class TMSServiceDatabaseImpl implements TMSService {
 			this.password = reader.readLine();
 		} catch (Exception e) {
 		}
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + this.databaseName, this.userName,
 				this.password);
 	}
@@ -110,34 +110,41 @@ public class TMSServiceDatabaseImpl implements TMSService {
 
 	@Override
 	public double getBalance(TransactionFilters filters) throws SQLException {
+		// try
+
 		String sqlStatment = "";
-		ResultSet total = null ;
+		ResultSet total = null;
 		if (filters.getType() == null) {
 			// get all
 			if (filters.getFrequent() != null) { // all frequent transaction
-				sqlStatment = ("SELECT sum(amount) from transaction as t  ,  frequenttransaction as ft where t.id=ft.id");
-			} else { // all non frequent transactions
-				sqlStatment = ("select sum(amount) from transaction where id not in (select id from frequenttransaction)");
+				if (filters.getFrequent() == true) {
+					sqlStatment = ("SELECT sum(amount) from transaction as t  ,  frequenttransaction as ft where t.id=ft.id");
+				} else { // all non frequent transactions
+					sqlStatment = ("select sum(amount) from transaction as t  where transaction.id not in (select frequenttransaction.id from frequenttransaction)");
+				}
 			}
 		} else if (filters.getType() == 15) {
 			// get Income
 			if (filters.getFrequent() != null) { // (income and frequent) transactions
-				sqlStatment = ("SELECT sum(amount) from transaction as t  ,  frequenttransaction as ft where  t.id=ft.id and t.type=15");
+				if (filters.getFrequent() == true) {
+					sqlStatment = ("SELECT sum(amount) from transaction as t  ,  frequenttransaction as ft where  t.id=ft.id and t.type=15");
 
-			} else { // (income and non-frequent) transactions
-				sqlStatment = ("select sum(amount) from transaction where type=15 and id not in (select id from frequenttransaction)");
+				} else { // (income and non-frequent) transactions
+					sqlStatment = ("select sum(amount) from transaction as t  where type=15 and id not in (select id from frequenttransaction)  ");
+				}
 			}
-
 		} else if (filters.getType() == 16) {
 			// get Expense
-			if (filters.getFrequent() != null) { // ( expense and frequent ) transactions
-				sqlStatment = ("SELECT sum(amount) from transaction as t  ,  frequenttransaction as ft where t.id=ft.id and t.type=16");
+			if (filters.getFrequent() != null) {
+				if (filters.getFrequent() == true) {
+					// ( expense and frequent ) transactions
+					sqlStatment = ("SELECT sum(amount) from transaction as t  ,  frequenttransaction as ft where t.id=ft.id and t.type=16");
 
-			} else { // (expense and non-frequent) transactions
-				sqlStatment = ("select sum(amount) from transaction where type=16 and id not in (select id from frequenttransaction)");
+				} else { // (expense and non-frequent) transactions
+					sqlStatment = ("select sum(amount) from transaction as t  where type=16 and id not in (select id from frequenttransaction)");
+				}
 			}
 		}
-
 		if (filters.getFrom() != null && filters.getTo() != null) {
 			sqlStatment += " and t.date>=DATE(\"" + filters.getFrom() + "\") and t.date<=DATE(\"" + filters.getTo()
 					+ "\")";
@@ -149,22 +156,25 @@ public class TMSServiceDatabaseImpl implements TMSService {
 
 		if (filters.getCategory() != null) {
 			if (filters.getFrom() != null || filters.getTo() != null) {
-				sqlStatment += " AND t.categort=" + filters.getCategory();
+				sqlStatment += " and t.category=" + filters.getCategory();
 			} else {
 				sqlStatment += " and t.category=" + filters.getCategory();
 			}
 		}
 
-		List<TransactionBase> transactions = new ArrayList<TransactionBase>();
 		try {
 			this.pstmt = this.connection.prepareStatement(sqlStatment);
 			total = this.pstmt.executeQuery();
+			if (total.next())
+				return total.getDouble(1);
+			return 0;
 
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return 0;
 
 		}
 
-		return total.getDouble(1);
 	}
 
 }

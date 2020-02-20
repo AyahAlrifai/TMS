@@ -1,6 +1,14 @@
 import java.time.LocalDate;
 
 public class TransactionFilters {
+	public TransactionFilters(Integer type, Integer category, LocalDate from, LocalDate to, Boolean frequent) {
+		super();
+		this.type = type;
+		this.category = category;
+		this.from = from;
+		this.to = to;
+		this.frequent = frequent;
+	}
 	private Integer type;
 	private Integer category;
 	private LocalDate from;
