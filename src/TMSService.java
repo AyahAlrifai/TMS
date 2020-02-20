@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.List;
 
 public interface TMSService {
@@ -10,13 +11,13 @@ public interface TMSService {
 	//raneem
 	public Boolean addExpense(Expense expense);
 	//deema
-	public Boolean addCategory(Category category);
+	public Boolean addCategory(Category category) throws SQLException;
 	//samar
-	public Boolean removeCategory(Integer id);
+	public Boolean removeCategory(Integer id) throws SQLException;
 	//deema
-	public Boolean updateCategory(Category category);
+	public Boolean updateCategory(Category category) throws SQLException;
 	//raneem
 	public Boolean updateTranFrequant(Integer transactionId,Integer monthFrequent);
 	//deema/ayah
-	public double getBalance(TransactionFilters filters);
+	public double getBalance(TransactionFilters filters) throws SQLException;
 }

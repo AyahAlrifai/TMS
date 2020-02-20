@@ -1,15 +1,17 @@
 import java.time.LocalDate;
-
+//datatype of category is class<Category> not integer
+//constructor receive category as class<Category> 
+//edit get and set methods for category
 public abstract class TransactionBase implements Transaction {
 	
 	private int id;
 	private int type;
 	private double amount;
-	private int category;
+	private Category category;
 	private String comment;
 	private LocalDate date;
 	
-	public TransactionBase(int id, int type, double amount, int category, String comment, LocalDate date) {
+	public TransactionBase(int id, int type, double amount, Category category, String comment, LocalDate date) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -37,10 +39,10 @@ public abstract class TransactionBase implements Transaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public int getCategory() {
+	public Category getCategory() {
 		return category;
 	}
-	public void setCategory(int category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 	public String getComment() {
@@ -55,6 +57,5 @@ public abstract class TransactionBase implements Transaction {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	
 	
 }

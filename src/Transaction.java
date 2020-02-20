@@ -14,7 +14,7 @@ public interface Transaction {
 
 	public void setAmount(double amount);
 
-	public int getCategory();
+	public Category getCategory();
 
 	public void setCategory(int category);
 
