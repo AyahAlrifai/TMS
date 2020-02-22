@@ -43,51 +43,46 @@ public class TMSServiceDatabaseImpl implements TMSService {
 	}
 
 	@Override
-	public Boolean addIncome(Income income) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addIncome(Income income) {
+		
+	
 	}
 
 	@Override
-	public Boolean addExpense(Expense expense) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addExpense(Expense expense) {
+		
 	}
 
 	@Override
-	public Boolean addCategory(Category category) throws SQLException {
-		pstmt = connection.prepareStatement("SELECT EXISTS(SELECT * from DictionaryEntries WHERE dkey=? and value=?)");
+	public void addCategory(Category category) throws SQLException {
+		pstmt = connection.prepareStatement("SELECT EXISTS(SELECT * from dictionaryentries WHERE dkey=? and value=?)");
 		pstmt.setInt(1, category.getDkey());
 		pstmt.setString(2, category.getValue());
 		result = pstmt.executeQuery();
-
-		if (result == null) {
-			pstmt = connection.prepareStatement("INSERT INTO DictionaryEntries(dkey,value,icon) " + "VALUES(?,?,?)");
+		result.next();
+		if (result.getBoolean(1)== false) {
+			pstmt = connection.prepareStatement("INSERT INTO dictionaryentries(dkey,value,icon) VALUES(?,?,?)");
 
 			pstmt.setInt(1, category.getDkey());
 			pstmt.setString(2, category.getValue());
 			pstmt.setString(3, category.getIconPath());
 			pstmt.executeUpdate();
-			return true;
-		} else
-			return false;
+		}
 	}
 
 	@Override
-	public Boolean removeCategory(Integer id) throws SQLException {
+	public void removeCategory(Integer id) throws SQLException {
 
 		pstmt = connection.prepareStatement("UPDATE  DictionaryEntries set enable='0' where id=?");
 
 		pstmt.setInt(1, id);
 
-		if (pstmt.executeUpdate() > 0)
-			return true;
-		else
-			return false;
+		pstmt.executeUpdate(); 
+			
 	}
 
 	@Override
-	public Boolean updateCategory(Category category) throws SQLException {
+	public void updateCategory(Category category) throws SQLException {
 
 		pstmt = connection.prepareStatement("UPDATE  DictionaryEntries set dkey=?,value=?,icon=? where id=?");
 
@@ -96,21 +91,18 @@ public class TMSServiceDatabaseImpl implements TMSService {
 		pstmt.setString(3, category.getIconPath());
 		pstmt.setInt(4, category.getId());
 
-		if (pstmt.executeUpdate() > 0)
-			return true;
-		else
-			return false;
+		pstmt.executeUpdate() ;
+			
 	}
 
 	@Override
-	public Boolean updateTranFrequant(Integer transactionId, Integer monthFrequent) {
+	public void updateTranFrequant(Integer transactionId, Integer monthFrequent) {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
 	public double getBalance(TransactionFilters filters) throws SQLException {
-		// try
 
 		String sqlStatment = "";
 		ResultSet total = null;
@@ -162,18 +154,16 @@ public class TMSServiceDatabaseImpl implements TMSService {
 			}
 		}
 
-		try {
+		
 			this.pstmt = this.connection.prepareStatement(sqlStatment);
 			total = this.pstmt.executeQuery();
 			if (total.next())
 				return total.getDouble(1);
 			return 0;
 
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			return 0;
+		
 
-		}
+		
 
 	}
 
