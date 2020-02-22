@@ -2,24 +2,24 @@
 //override toString method 
 public class Category {
 
-	private Integer id;
+	private int id;
 	private int dkey;
 	private String value;
 	private String iconPath;
 
-	public Category(Integer id ,Integer dkey, String value, String iconPath) {
+	public Category(int id, int dkey, String value, String iconPath) {
 		super();
-		this.id=id;
+		this.id = id;
 		this.value = value;
 		this.iconPath = iconPath;
 		this.dkey = dkey;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
