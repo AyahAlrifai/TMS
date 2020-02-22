@@ -19,4 +19,9 @@ public interface TMSService {
 	public Boolean updateTranFrequant(Integer transactionId,Integer monthFrequent);
 	//deema/ayah
 	public double getBalance(TransactionFilters filters);
+	
+	public Category getCategory(Integer id);
+	
+	public int getMonthFrequent(int id);
+
 }

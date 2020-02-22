@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 //type of list TransactionBase in getTransatcions method
-
 public class TMSServiceDatabaseImpl implements TMSService {
 	private Connection connection;
 	private String databaseName;
@@ -29,7 +28,39 @@ public class TMSServiceDatabaseImpl implements TMSService {
 		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + this.databaseName, this.userName,
 				this.password);
 	}
-
+	
+	@Override
+	public int getMonthFrequent(int id) {
+		try {
+			String sqlStatment="select monthFrequent from FrequentTransaction where id=?";
+			this.pstmt = this.connection.prepareStatement(sqlStatment);
+			this.pstmt.setInt(1, id);
+			ResultSet monthFrequent=this.pstmt.executeQuery();
+			monthFrequent.next(); 
+			return monthFrequent.getInt("monthFrequent");
+		}
+		catch (Exception e) {
+			
+		}
+		return 0;
+	}
+	
+	@Override
+	public Category getCategory(Integer id) {
+		try {
+			String sqlStatment="select dkey,value,icon from DictionaryEntries where id=? and enable=true;\n";
+			this.pstmt = this.connection.prepareStatement(sqlStatment);
+			this.pstmt.setInt(1, id);
+			ResultSet categortData=this.pstmt.executeQuery();
+			categortData.next();
+			return new Category(this.result.getInt("category"),categortData.getInt("dkey"),categortData.getString("value"),categortData.getString("icon"));
+		}
+		catch (Exception e) {
+			
+		}
+		return null;
+	}
+	
 	@Override
 	public List<TransactionBase> getTransatcions(TransactionFilters filters) {
 		/* type;category;from;to;frequent; */
@@ -118,29 +149,17 @@ public class TMSServiceDatabaseImpl implements TMSService {
 			this.pstmt = this.connection.prepareStatement(sqlStatment);
 			this.result = this.pstmt.executeQuery();
 			while (this.result.next()) {
-				//get category data
-				sqlStatment="select dkey,value,icon from DictionaryEntries where id=? and enable=true;\n";
-				this.pstmt = this.connection.prepareStatement(sqlStatment);
-				this.pstmt.setInt(1, this.result.getInt("category"));
-				ResultSet categortData=this.pstmt.executeQuery();
-				categortData.next();
-				Category category=new Category(this.result.getInt("category"),categortData.getInt("dkey"),categortData.getString("value"),categortData.getString("icon"));
-				////////////////////////////////////////////////////////////////////////////////////////////////
+				Category category=getCategory(this.result.getInt("category"));
 				TransactionArgument transactionArgument;
 				if (this.result.getBoolean("frequent")) {
 					//get monthFrequent
-					sqlStatment="select monthFrequent from FrequentTransaction where id=?";
-					this.pstmt = this.connection.prepareStatement(sqlStatment);
-					this.pstmt.setInt(1, this.result.getInt("id"));
-					ResultSet monthFrequent=this.pstmt.executeQuery();
-					monthFrequent.next();
-					/////////////////////////////////////////////////////////////////////////////////////////////
+					int monthFrequent=getMonthFrequent(this.result.getInt("id"));
 					if (this.result.getInt("type")==15) {
-						transactionArgument=new TransactionArgument(this.result.getInt("id"),this.result.getInt("type"),this.result.getDouble("amount"),category,this.result.getString("comment"),this.result.getDate("date").toLocalDate(),0,monthFrequent.getInt("monthFrequent"));
+						transactionArgument=new TransactionArgument(this.result.getInt("id"),this.result.getInt("type"),this.result.getDouble("amount"),category,this.result.getString("comment"),this.result.getDate("date").toLocalDate(),0,monthFrequent);
 						TransactionBase frequentIncome=Factory.createTransaction("FrequentIncome",transactionArgument);
 						transactions.add(frequentIncome);
 					} else if (this.result.getInt("type")==16) {
-						transactionArgument=new TransactionArgument(this.result.getInt("id"),this.result.getInt("type"),this.result.getDouble("amount"),category,this.result.getString("comment"),this.result.getDate("date").toLocalDate(),this.result.getInt("paymentMethod"),monthFrequent.getInt("monthFrequent"));
+						transactionArgument=new TransactionArgument(this.result.getInt("id"),this.result.getInt("type"),this.result.getDouble("amount"),category,this.result.getString("comment"),this.result.getDate("date").toLocalDate(),this.result.getInt("paymentMethod"),monthFrequent);
 						TransactionBase frequentExpense=Factory.createTransaction("FrequentExpense", transactionArgument);
 						transactions.add(frequentExpense);
 					}
