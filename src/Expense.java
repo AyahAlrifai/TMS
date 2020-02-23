@@ -1,9 +1,13 @@
+//constructor receive category as class<Category> not integer !!
+//override toString method
 import java.time.LocalDate;
 
 public class Expense extends TransactionBase {
+
 	private int paymentMethod;
 
-	public Expense(int id, int type, double amount, int category, String comment, LocalDate date, int paymentMethod) {
+	public Expense(int id, int type, double amount, Category category, String comment, LocalDate date,
+			int paymentMethod) {
 		super(id, type, amount, category, comment, date);
 		this.paymentMethod = paymentMethod;
 	}
@@ -15,5 +19,12 @@ public class Expense extends TransactionBase {
 	public void setPymentMethod(int pymentMethod) {
 		this.paymentMethod = pymentMethod;
 	}
+
+	@Override
+	public String toString() {
+		return "EXpense\t\tid:"+this.getId()+"\ttype:"+this.getType()+"\tamount:"+this.getAmount()+"\tdate:"+this.getDate()+"\tcategory:"+this.getCategory().getId()+"\tcomment:"+this.getComment()+"\tpaymentMethod:"+this.getPymentMethod();
+	}
+
+	
 
 }
