@@ -2,7 +2,8 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.*;    
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 class Services {
@@ -240,7 +241,6 @@ class UI {
 
 public class MTS {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-		UI ui=new UI();
-		ui.run();
+		
 	}
 }
