@@ -1,5 +1,8 @@
+
 public class Factory {
+
 	public static TransactionBase createTransaction(String transactionType, TransactionArgument arguments) {
+
 		switch (transactionType) {
 		case "Income":
 			return new Income(arguments.id, arguments.type, arguments.amount, arguments.category, arguments.comment,
