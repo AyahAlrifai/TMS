@@ -25,10 +25,6 @@ public class Expense extends TransactionBase {
 		return "EXpense\t\tid:"+this.getId()+"\ttype:"+this.getType()+"\tamount:"+this.getAmount()+"\tdate:"+this.getDate()+"\tcategory:"+this.getCategory().getId()+"\tcomment:"+this.getComment()+"\tpaymentMethod:"+this.getPymentMethod();
 	}
 
-	@Override
-	public void setCategory(int category) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

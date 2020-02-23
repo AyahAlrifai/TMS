@@ -6,9 +6,5 @@ public class Income extends TransactionBase {
 		super(id, type, amount, category, comment, date);
 	}
 
-	@Override
-	public void setCategory(int category) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

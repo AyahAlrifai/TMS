@@ -16,7 +16,7 @@ public interface Transaction {
 
 	public Category getCategory();
 
-	public void setCategory(int category);
+	public void setCategory(Category category);
 
 	public String getComment();
 
