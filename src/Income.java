@@ -11,5 +11,4 @@ public class Income extends TransactionBase {
 		return "Income\t\tid:"+this.getId()+"\ttype:"+this.getType()+"\tamount:"+this.getAmount()+"\tdate:"+this.getDate()+"\tcategory:"+this.getCategory().getId()+"\tcomment:"+this.getComment();
 
 	}
-
 }

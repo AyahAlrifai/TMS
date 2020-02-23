@@ -1,3 +1,5 @@
+//constructor receive category as class<Category> not integer !!
+//override toString method
 import java.time.LocalDate;
 
 public class Expense extends TransactionBase {
@@ -22,5 +24,7 @@ public class Expense extends TransactionBase {
 	public String toString() {
 		return "EXpense\t\tid:"+this.getId()+"\ttype:"+this.getType()+"\tamount:"+this.getAmount()+"\tdate:"+this.getDate()+"\tcategory:"+this.getCategory().getId()+"\tcomment:"+this.getComment()+"\tpaymentMethod:"+this.getPymentMethod();
 	}
+
+	
 
 }
