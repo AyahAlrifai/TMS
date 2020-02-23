@@ -1,6 +1,5 @@
 import java.time.LocalDate;
-//constructor receive category as class<Category> not integer !!
-//override toString method
+
 public class FrequentIncome extends Income implements Frequent {
 
 	private int monthFrequent;
@@ -27,7 +26,9 @@ public class FrequentIncome extends Income implements Frequent {
 
 	@Override
 	public String toString() {
-		return "FrequentIncome\tid:"+this.getId()+"\ttype:"+this.getType()+"\tamount:"+this.getAmount()+"\tdate:"+this.getDate()+"\tcategory:"+this.getCategory().getId()+"\tcomment:"+this.getComment()+"\t\t\t\t\tfrequent:"+this.getMonthFrequent();
+		return "FrequentIncome\tid:" + this.getId() + "\ttype:" + this.getType() + "\tamount:" + this.getAmount()
+				+ "\tdate:" + this.getDate() + "\tcategory:" + this.getCategory().getId() + "\tcomment:"
+				+ this.getComment() + "\t\t\t\t\tfrequent:" + this.getMonthFrequent();
 
 	}
 }

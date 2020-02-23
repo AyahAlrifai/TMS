@@ -1,7 +1,4 @@
 import java.time.LocalDate;
-//datatype of category is class<Category> not integer
-//constructor receive category as class<Category> 
-//edit get and set methods for category
 public abstract class TransactionBase implements Transaction {
 	
 	private int id;

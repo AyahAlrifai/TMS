@@ -1,4 +1,3 @@
-
 public interface Frequent {
 	public int getMonthFrequent();
 

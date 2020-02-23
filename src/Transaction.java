@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-//edit get and set methods for category
 public interface Transaction {
 	
 	public int getId();

@@ -1,5 +1,3 @@
-//add dkey as attribute and build getter and setter
-//override toString method 
 public class Category {
 
 	private int id;

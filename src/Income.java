@@ -1,6 +1,5 @@
 import java.time.LocalDate;
-//constructor receive category as class<Category> not integer !!
-//override toString method
+
 public class Income extends TransactionBase {
 
 	public Income(int id, int type, double amount, Category category, String comment, LocalDate date) {
