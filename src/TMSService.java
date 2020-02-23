@@ -3,13 +3,13 @@ import java.util.List;
 
 public interface TMSService {
 
-	public List<Transaction> getTransatcions(TransactionFilters filters);
+	public List<TransactionBase> getTransatcions(TransactionFilters filters) throws SQLException;
 	
-	public List<Category> getCategories(Integer type);
+	public List<Category> getCategories(Integer type)throws SQLException;
 	
-	public void addIncome(Income income);
+	public void addIncome(Income income) throws SQLException;
 	
-	public void addExpense(Expense expense);
+	public void addExpense(Expense expense)throws SQLException;
 	
 	public void addCategory(Category category) throws SQLException;
 	
@@ -17,7 +17,11 @@ public interface TMSService {
 	
 	public void updateCategory(Category category) throws SQLException;
 	
-	public void updateTranFrequant(Integer transactionId,Integer monthFrequent);
+	public void updateTranFrequant(Integer transactionId,Integer monthFrequent) throws SQLException;
 
 	public double getBalance(TransactionFilters filters) throws SQLException;
+
+	int getMonthFrequent(int id)throws SQLException;
+
+	Category getCategory(Integer id)throws SQLException;
 }
