@@ -1,6 +1,7 @@
 import java.time.LocalDate;
+
 public interface Transaction {
-	
+
 	public int getId();
 
 	public void setId(int id);
