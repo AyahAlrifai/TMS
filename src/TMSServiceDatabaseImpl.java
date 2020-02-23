@@ -1,5 +1,7 @@
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,53 +18,38 @@ public class TMSServiceDatabaseImpl implements TMSService {
 	private PreparedStatement pstmt;
 	private ResultSet result;
 
-	public TMSServiceDatabaseImpl() throws ClassNotFoundException, SQLException {
-		try {
+	public TMSServiceDatabaseImpl() throws ClassNotFoundException, SQLException, IOException {
 			DataInputStream reader = new DataInputStream(new FileInputStream("configFile.txt"));
 			this.databaseName = reader.readLine();
 			this.userName = reader.readLine();
 			this.password = reader.readLine();
-		} catch (Exception e) {
-		}
 		Class.forName("com.mysql.jdbc.Driver");
 		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + this.databaseName, this.userName,
 				this.password);
 	}
 	
 	@Override
-	public int getMonthFrequent(int id) {
-		try {
+	public int getMonthFrequent(int id) throws SQLException {
 			String sqlStatment="select monthFrequent from FrequentTransaction where id=?";
 			this.pstmt = this.connection.prepareStatement(sqlStatment);
 			this.pstmt.setInt(1, id);
 			ResultSet monthFrequent=this.pstmt.executeQuery();
 			monthFrequent.next(); 
 			return monthFrequent.getInt("monthFrequent");
-		}
-		catch (Exception e) {
-			
-		}
-		return 0;
 	}
 	
 	@Override
-	public Category getCategory(Integer id) {
-		try {
+	public Category getCategory(Integer id) throws SQLException {
 			String sqlStatment="select dkey,value,icon from DictionaryEntries where id=? and enable=true;\n";
 			this.pstmt = this.connection.prepareStatement(sqlStatment);
 			this.pstmt.setInt(1, id);
 			ResultSet categortData=this.pstmt.executeQuery();
 			categortData.next();
 			return new Category(this.result.getInt("category"),categortData.getInt("dkey"),categortData.getString("value"),categortData.getString("icon"));
-		}
-		catch (Exception e) {
-			
-		}
-		return null;
 	}
 	
 	@Override
-	public List<TransactionBase> getTransatcions(TransactionFilters filters) {
+	public List<TransactionBase> getTransatcions(TransactionFilters filters) throws SQLException {
 		/* type;category;from;to;frequent; */
 		String sqlStatment = "";
 		if (filters.getType() == null) {
@@ -145,7 +132,6 @@ public class TMSServiceDatabaseImpl implements TMSService {
 		}
 		sqlStatment += " ORDER BY t.date";
 		List<TransactionBase> transactions = new ArrayList<TransactionBase>();
-		try {
 			this.pstmt = this.connection.prepareStatement(sqlStatment);
 			this.result = this.pstmt.executeQuery();
 			while (this.result.next()) {
@@ -176,18 +162,14 @@ public class TMSServiceDatabaseImpl implements TMSService {
 					}
 				}
 			}
-		} 
-		catch (Exception e) {
-
-		}
+		
 		return transactions;
 	}
 
 	@Override
-	public List<Category> getCategories(Integer type) {
+	public List<Category> getCategories(Integer type) throws SQLException {
 		//type===dkey income if dkey=1 expense if dkey=2
 		String sqlStatment="select * from DictionaryEntries where dkey=?";
-		try {
 			this.pstmt = this.connection.prepareStatement(sqlStatment);
 			this.pstmt.setInt(1, type);
 			this.result = this.pstmt.executeQuery();
@@ -196,46 +178,30 @@ public class TMSServiceDatabaseImpl implements TMSService {
 				category.add(new Category(this.result.getInt("id"),this.result.getInt("dkey"),this.result.getString("value"),this.result.getString("icon")));
 			}
 			return category;
-		} catch (SQLException e) {
-
 		}
-		return null;
+
+	@Override
+	public void addIncome(Income income) {
 	}
 
 	@Override
-	public Boolean addIncome(Income income) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addExpense(Expense expense) {
 	}
 
 	@Override
-	public Boolean addExpense(Expense expense) {
-		// TODO Auto-generated method stub
-		return null;
+	public void addCategory(Category category) {
 	}
 
 	@Override
-	public Boolean addCategory(Category category) {
-		// TODO Auto-generated method stub
-		return null;
+	public void removeCategory(Integer id) {
 	}
 
 	@Override
-	public Boolean removeCategory(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateCategory(Category category) {
 	}
 
 	@Override
-	public Boolean updateCategory(Category category) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean updateTranFrequant(Integer transactionId, Integer monthFrequent) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateTranFrequant(Integer transactionId, Integer monthFrequent) {
 	}
 
 	@Override

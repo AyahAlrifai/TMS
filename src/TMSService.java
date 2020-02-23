@@ -1,3 +1,4 @@
+import java.sql.SQLException;
 import java.util.List;
 //type of list TransactionBase in getTransatcions method
 public interface TMSService {
