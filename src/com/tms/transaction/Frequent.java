@@ -1,3 +1,4 @@
+package com.tms.transaction;
 
 public interface Frequent {
 	public int getMonthFrequent();

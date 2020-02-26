@@ -1,16 +1,29 @@
-ADD,ICON,FOOD,/home/ayahalrifai97/Desktop/TMS/a.png
-ADD,ICON,aaaa,/home/ayahalrifai97/Desktop/TMS/b.png
-ADD,CATEGORY,INCOM CATEGORY,aaaa
-SHOW,CATEGORY,SALARY, 
-SHOW,CATEGORY,entertainment, 
-SHOW,CATEGORY,incoming fare, 
-SHOW,ALL, , 
-SHOW,INCOME, , 
-SHOW,EXPENSE, , 
-SHOW,ALL,2020-1-20, 
-SHOW,INCOME,2020-1-20, 
-SHOW,EXPENSE,2020-1-20, 
-SHOW,ALL, ,2020-1-20
-SHOW,INCOME, ,2020-1-20
-SHOW,EXPENSE, ,2020-1-20
-
+getCategory
+TMS --hel
+TMS --help
+TMS --help -c 2
+TMS getCatgory
+TMS getTransaction
+TMS getTransaction -t 12
+TMS getTransaction -t 15
+TMS getTransaction -t 16
+TMS getTransaction -c 30
+TMS getTransaction -c 3
+TMS getTransaction -c 3 -t 15
+TMS getTransaction -c 3 -t 16
+TMS getTransaction -c 1 -t 15
+TMS getTransaction -c 1 -t 16
+TMS getTransaction -fd 2020-1-1
+TMS getTransaction -fd 2020-01-01
+TMS getTransaction -fd 2021-01-01
+TMS getTransaction -td 2020-01-01
+TMS getTransaction -td 2020-04-01
+TMS getTransaction -td 2020-02-01 -fd 2020-01-01
+TMS getTransaction -td 2020-01-01 -fd 2020-02-01
+TMS getTransaction -td 2020-02-01 -fd 2020-01-01 -c 3 -t 15
+TMS getTransaction -td 2020-02-01 -fd 2020-01-01 -c 3 -t 10
+TMS getTransaction -td 2020-02-01 -fd 2020-01-01 -c 3 -t 16
+TMS getTransaction -td 2020-02-01 -fd 2020-01-01 -c 3 -t 16 -f true
+TMS getTransaction -td 2020-02-01 -fd 2020-01-01 -c 3 -t 15 -f 1
+TMS getTransaction -td 2020-02-01 -fd 2020-01-01 -c 3 -t 16 -f 1
+TMS getTransaction -td 2020-02-01 -fd 2020-01-01 -c 3 -t 16 -f true -d 123

@@ -1,5 +1,5 @@
-//add dkey as attribute and build getter and setter
-//override toString method 
+package com.tms.transaction;
+
 public class Category {
 
 	private Integer id;
@@ -7,9 +7,9 @@ public class Category {
 	private String value;
 	private String iconPath;
 
-	public Category(Integer id ,Integer dkey, String value, String iconPath) {
+	public Category(Integer id, Integer dkey, String value, String iconPath) {
 		super();
-		this.id=id;
+		this.id = id;
 		this.value = value;
 		this.iconPath = iconPath;
 		this.dkey = dkey;
@@ -49,6 +49,6 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category id:" + id + "\tdkey:" + dkey +  "\tvalue:" + value + "\ticonPath:" + iconPath;
+		return "Category id:" + id + "\tdkey:" + dkey + "\tvalue:" + value + "\ticonPath:" + iconPath;
 	}
 }
