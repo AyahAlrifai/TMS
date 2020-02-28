@@ -5,6 +5,7 @@ import com.tms.exception.*;
 public class TMS {
 
 	public static void main(String[] args) {
+
 		try {
 			TMSCmdService s = new TMSCmdService();
 			while (true) {

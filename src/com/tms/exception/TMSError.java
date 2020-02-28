@@ -12,13 +12,13 @@ import com.tms.service.TMSServiceDatabaseImpl;
 
 public class TMSError {
 
-	public static void getError(HashMap<String, String> cmd, TMSServiceDatabaseImpl ser)
-			throws ClassNotFoundException, SQLException, IOException, ServiceNotFound, CommandNotFound, InvalidDate {
+	public static void getError(HashMap<String, String> cmd, TMSServiceDatabaseImpl ser) throws ClassNotFoundException,
+			SQLException, IOException, ServiceNotFound, CommandNotFound, InvalidDate, InvalidFrequentValue {
 		if (cmd.containsKey("cmd") && !cmd.get("cmd").equals("TMS")) {
-			throw new CommandNotFound("make sure each command must start with 'TMS'\n");
+			throw new CommandNotFound("make sure each command must start with 'TMS'");
 		}
 		if (cmd.containsKey("cmd") && cmd.get("cmd").equals("TMS") && cmd.size() == 1) {
-			throw new CommandNotFound("enter service after 'TMS' command\n");
+			throw new CommandNotFound("enter service after 'TMS' command");
 		}
 		for (Entry<String, String> entry : cmd.entrySet()) {
 			String key = entry.getKey();
@@ -30,24 +30,15 @@ public class TMSError {
 				if (value.equals("getTransaction")) {
 
 				} else if (value.equals("--help")) {
-				}
-				else if (key.equals("-td")) {
-					if (!Pattern.matches("[0-9][0-9][0-9][0-9]-[0-9]{2}-[0-9]{2}", value)) {
-						throw new InvalidDate("enetr date in this format yyyy-mm-dd\n");
-					}
-				} 
-				else if (key.equals("-fd")) {
-					if (!Pattern.matches("[0-9][0-9][0-9][0-9]-[0-9]{2}-[0-9]{2}",value)) {
-						throw new InvalidDate("enetr date in this format yyyy-mm-dd\n");
-					}
-				}
-				else if (key.equals("-f")) {
-					if (!value.equals("true")) {
-						throw new InvalidFrequentValue("");
-					}
-				else
+				} else {
 					throw new ServiceNotFound(
 							"make sure you enter valid service such as getTransaction,getCategory,.....\nenter TMS --help to help you");
+				}
+			}
+			if (key.equals("-f")) {
+				if (!value.equals("true")) {
+					throw new InvalidFrequentValue("");
+				}
 			}
 		}
 

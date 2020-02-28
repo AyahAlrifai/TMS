@@ -26,7 +26,7 @@ public class TMSServiceDatabaseImpl implements TMSService {
 		this.password = reader.readLine();
 
 		Class.forName("com.mysql.jdbc.Driver");
-		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + this.databaseName, this.userName,
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + this.databaseName+"?useSSL=false", this.userName,
 				this.password);
 	}
 
